@@ -1,9 +1,26 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
     id("kotlin-kapt")
     id("maven-publish")
+    id("com.vanniktech.maven.publish") version "0.28.0" apply false
+    id("com.gradleup.nmcp") version "0.0.7" apply false
+}
+
+val githubProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("github.properties")))
+}
+
+val getVersionName: () -> String = {
+    "1.0.0" // Replace with version Name
+}
+
+val getArtifactId: () -> String = {
+    "qwary-android-sdk" // Replace with library name ID
 }
 
 android {
@@ -57,8 +74,37 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0")
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.qwary" // Replace with group ID
+            artifactId = getArtifactId()
+            version = getVersionName()
+            artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name = "qwary-android-sdk"
+            /** Configure path of your package repository on Github
+             ** Replace GITHUB_USERID with your/organisation Github userID
+             ** and REPOSITORY with the repository name on GitHub
+             */
+            url = uri("https://maven.pkg.github.com/Qwary-team/qwary-android-sdk")
+            credentials {
+                /** Create github.properties in root project folder file with
+                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+                username = githubProperties.getProperty("gpr.usr") ?: System.getenv("GPR_USER")
+                password = githubProperties.getProperty("gpr.key") ?: System.getenv("GPR_API_KEY")
+            }
+        }
+    }
+}
 
 
+/*
 afterEvaluate{
 
     publishing {
@@ -101,28 +147,6 @@ afterEvaluate{
             }
         }
     }
-}
+}*/
 
 
-
-//publishing {
-//    publications {
-//        create<MavenPublication>("maven") {
-//            groupId = "com.github.vishaldrana"
-//            artifactId = "qwary-android-sdk"
-//            version = "1.0"
-//        }
-//    }
-//}
-//afterEvaluate {
-//    publishing{
-//        publications {
-//            maven()
-////            bar(MavenPublication) {
-////          groupId = 'com.github.vishaldrana'
-////                artifactId = 'qwary-android-sdk'
-////                version = '1.0'
-////            }
-//        }
-//    }
-//}
