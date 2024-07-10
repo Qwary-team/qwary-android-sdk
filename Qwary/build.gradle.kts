@@ -7,8 +7,8 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("maven-publish")
-    id("com.vanniktech.maven.publish") version "0.28.0" apply false
-    id("com.gradleup.nmcp") version "0.0.7" apply false
+    id("com.vanniktech.maven.publish") version "0.29.0"
+    id("com.gradleup.nmcp") version "0.0.8" apply false
 }
 
 val githubProperties = Properties().apply {
@@ -56,13 +56,13 @@ android {
         jvmTarget = "1.8"
     }
 
-    publishing {
+  /*  publishing {
         singleVariant("release") {
             // if you don't want sources/javadoc, remove these lines
             withSourcesJar()
             withJavadocJar()
         }
-    }
+    }*/
 }
 
 dependencies {
@@ -73,8 +73,37 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0")
 }
+/*mavenPublishing{
+    coordinates("com.qwary", "qwary-android-sdk", "1.0.0-SNAPSHOT")
+    pom {
+        name = "qwary-android-sdk"
+        description = "Test Description"
+        url = "https://www.qwary.com/"
 
-publishing {
+        licenses {
+            license {
+                name = "The Qwary Software License, Version 1.0"
+                url = "https://github.com/Qwary-team/qwary-android-sdk/blob/main/LICENSE"
+            }
+        }
+
+        developers {
+            developer {
+                id = "Qwary"
+                name = "Qwary"
+                email = "support@qwary.com"
+            }
+        }
+
+        scm {
+            connection = "scm:git:git://github.com/Qwary-team/qwary-android-sdk.git"
+            developerConnection = "scm:git:ssh://github.com:Qwary-team/qwary-android-sdk.git"
+            url = "https://github.com/Qwary-team/qwary-android-sdk/"
+        }
+    }
+}*/
+
+/*publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.qwary" // Replace with group ID
@@ -84,24 +113,24 @@ publishing {
         }
     }
 
-    repositories {
+*//*    repositories {
         maven {
             name = "qwary-android-sdk"
-            /** Configure path of your package repository on Github
+            *//**//** Configure path of your package repository on Github
              ** Replace GITHUB_USERID with your/organisation Github userID
              ** and REPOSITORY with the repository name on GitHub
-             */
+             *//**//*
             url = uri("https://maven.pkg.github.com/Qwary-team/qwary-android-sdk")
             credentials {
-                /** Create github.properties in root project folder file with
+                *//**//** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
-                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**//**//*
                 username = githubProperties.getProperty("gpr.usr") ?: System.getenv("GPR_USER")
                 password = githubProperties.getProperty("gpr.key") ?: System.getenv("GPR_API_KEY")
             }
         }
-    }
-}
+    }*//*
+}*/
 
 
 /*
@@ -115,8 +144,7 @@ afterEvaluate{
                 artifactId = "qwary-android-sdk"
                 version = "=1.0.0"
 
-                pom {
-                    pom {
+                 pom {
                         name = "qwary-android-sdk"
                         description = "Test Description"
                         url = "http://yourwebsite.com"
@@ -142,7 +170,6 @@ afterEvaluate{
                             url = "https://github.com/Qwary-team/qwary-android-sdk/"
                         }
                     }
-                }
 
             }
         }

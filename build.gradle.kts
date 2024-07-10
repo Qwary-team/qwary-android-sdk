@@ -2,6 +2,6 @@
 plugins {
     id("com.android.application") version "8.2.1" apply false
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
-    id("com.vanniktech.maven.publish") version "0.28.0" apply false
-    id("com.gradleup.nmcp") version "0.0.7" apply false
+    id("com.vanniktech.maven.publish") version "0.29.0"
+    id("com.gradleup.nmcp") version "0.0.8" apply false
 }
