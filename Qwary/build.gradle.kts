@@ -13,7 +13,7 @@ plugins {
 }
 
 val getVersionName: () -> String = {
-    "1.0.1" // Replace with version Name
+    "1.0.5" // Replace with version Name
 }
 
 val getArtifactId: () -> String = {
@@ -70,77 +70,9 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-
-            groupId = "com.qwary"
-            artifactId = getArtifactId()
-            version = getVersionName()
-
-          /*  pom {
-                name.set("Qwary Android SDK")
-                description.set("The Qwary Android SDK allows you to seamlessly integrate surveys and feedback forms into your Android application. This guide will walk you through the process of downloading, importing, and configuring the SDK within your project.")
-                url.set("https://github.com/Qwary-team/qwary-android-sdk/")
-
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://github.com/Qwary-team/qwary-android-sdk/blob/main/LICENSE")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("Qwary Team")
-                        name.set("Qwary SDK Team")
-                        email.set("support@qwary.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/Qwary-team/qwary-android-sdk.git")
-                    developerConnection.set("scm:git:ssh://github.com:Qwary-team/qwary-android-sdk.git")
-                    url.set("https://github.com/Qwary-team/qwary-android-sdk/")
-                }
-            }*/
         }
     }
 }
-
-/*publishing {
-    publications {
-        create<MavenPublication>("release") {
-
-            afterEvaluate {
-                from(components["release"])
-            }
-
-            groupId = "com.qwary"
-            artifactId = getArtifactId()
-            version = getVersionName()
-
-            pom {
-                name.set("Qwary Android SDK")
-                description.set("Description of your SDK")
-                url.set("https://your_project_url")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("developerId")
-                        name.set("Developer Name")
-                        email.set("developer@example.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/username/repository.git")
-                    developerConnection.set("scm:git:ssh://github.com:username/repository.git")
-                    url.set("https://github.com/username/repository")
-                }
-            }
-        }
-    }
-}*/
 
 signing {
     useGpgCmd()

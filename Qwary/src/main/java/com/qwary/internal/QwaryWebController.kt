@@ -50,7 +50,9 @@ class QwaryWebController : QwaryInterface, Application.ActivityLifecycleCallback
         } ?: true
     }
 
-    override fun configure(context: Context, qwSettings: String) {
+    override fun configure(context: Context, qwSettings: String,  fragmentActivity: FragmentActivity?) {
+        currentFragmentActivity = fragmentActivity ?: context as FragmentActivity
+
         (context.applicationContext as Application).registerActivityLifecycleCallbacks(this)
         if (hasConfigured) return
         hasConfigured = true
@@ -89,6 +91,8 @@ class QwaryWebController : QwaryInterface, Application.ActivityLifecycleCallback
     override fun dismissActiveSurvey() {}
 
     override fun addEvent(eventName: String) {
+        Log.d(QW_TAG, "addEvent() called====== $eventName")
+
         sdkReadyQueue.add(getEventTrackScript(eventName))
 //        executeJavascript(getEventTrackScript(eventName))
     }
@@ -202,16 +206,7 @@ class QwaryWebController : QwaryInterface, Application.ActivityLifecycleCallback
 
     fun onViewCreated(view: ViewGroup, dismissView: () -> Unit) {
         if (::qwWebView.isInitialized) {
-//            Log.d(QW_TAG, "onViewCreated() isAttachedToWindow ${qwWebView.isAttachedToWindow}")
-//            Log.d(QW_TAG, "onViewCreated() parent ${qwWebView.parent != null}")
-//            handler.removeCallbacks(resetWebView)
-//            isSdkReady = true // The SDK must have already been ready to get here
-//            if (webView.parent != null) {
-//                // The view is already attached, so avoid a crash
-//                dismissView()
-//                logError(IllegalStateException("Prevented displaying survey because provided view already has parent"))
-//                return
-//            }
+
             Log.d(QW_TAG, "onViewCreated() isInitialized ${::qwWebView.isInitialized}")
             view.addView(qwWebView)
         } else {
@@ -257,11 +252,6 @@ class QwaryWebController : QwaryInterface, Application.ActivityLifecycleCallback
         super.onAvailable(network)
 //        Log.d(QW_TAG, "onAvailable() called")
         isNetworkAvailable = true
-        // Reset web view in order to re-fetch the configuration. Survey will not be shown until the
-        // configuration is fetched.
-//        onUiParallel {
-//            resetWebView.run()
-//        }
     }
 
     override fun onLost(network: Network) {

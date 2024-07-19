@@ -7,7 +7,7 @@ import com.qwary.internal.QwaryWebController
 
 @Keep
 internal interface QwaryInterface {
-    fun configure(context: Context, qwSettings: String)
+    fun configure(context: Context, qwSettings: String, fragmentActivity: FragmentActivity? = null)
     fun presentSurvey(fragmentActivity: FragmentActivity, isBanner: Boolean)
     fun addEvent(eventName: String)
     fun logout()
